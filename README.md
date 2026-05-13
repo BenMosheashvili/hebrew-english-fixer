@@ -75,15 +75,19 @@ Result:      akldm nd bgnd
 
 ## 🔁 Auto-start with Windows
 
-Run once in PowerShell to add to Startup:
+By default you need to double-click the script every time you restart. To make it **start automatically with Windows**, run this once in PowerShell (adjust the path if needed):
 
 ```powershell
 $ws = New-Object -ComObject WScript.Shell
 $sc = $ws.CreateShortcut("$([Environment]::GetFolderPath('Startup'))\HebrewFixer.lnk")
-$sc.TargetPath = "$PWD\Hebrew-English.ahk"
-$sc.WorkingDirectory = "$PWD"
+$sc.TargetPath = "C:\Users\Owner\HEBREW ENGLISH\Hebrew-English.ahk"
+$sc.WorkingDirectory = "C:\Users\Owner\HEBREW ENGLISH"
 $sc.Save()
 ```
+
+This creates a shortcut in your Windows Startup folder (`shell:startup`). From now on, the script launches automatically every time you log in — no manual action needed.
+
+> To remove auto-start: open `shell:startup` in File Explorer and delete `HebrewFixer.lnk`
 
 ---
 
