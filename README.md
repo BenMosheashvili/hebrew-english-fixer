@@ -80,8 +80,8 @@ By default you need to double-click the script every time you restart. To make i
 ```powershell
 $ws = New-Object -ComObject WScript.Shell
 $sc = $ws.CreateShortcut("$([Environment]::GetFolderPath('Startup'))\HebrewFixer.lnk")
-$sc.TargetPath = "C:\Users\Owner\HEBREW ENGLISH\Hebrew-English.ahk"
-$sc.WorkingDirectory = "C:\Users\Owner\HEBREW ENGLISH"
+$sc.TargetPath = "$PWD\Hebrew-English.ahk"
+$sc.WorkingDirectory = "$PWD"
 $sc.Save()
 ```
 
