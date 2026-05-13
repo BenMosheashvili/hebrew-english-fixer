@@ -46,7 +46,8 @@ The script detects direction automatically.
 
 | Action | Hotkey |
 |--------|--------|
-| Convert last word | **NumLock** |
+| Convert selected text | Select text → **NumLock** |
+| Convert last word (no selection) | **NumLock** |
 | Convert last sentence | Right-click tray icon |
 | Exit | Right-click tray icon → Exit |
 
