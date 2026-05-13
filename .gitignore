@@ -1,0 +1,13 @@
+# Compiled executable (optional — include if you want to ship it)
+*.exe
+
+# AHK compiled resources
+*.bin
+
+# Windows
+Thumbs.db
+desktop.ini
+
+# Editors
+.vscode/
+*.swp
