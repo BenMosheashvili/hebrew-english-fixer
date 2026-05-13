@@ -40,13 +40,24 @@ Convert(text) {
 DoConvert() {
     old := ClipboardAll()
     A_Clipboard := ""
-    Send "^+{Left}"
-    Sleep 50
+
+    ; Copy current selection
     Send "^c"
-    if !ClipWait(1) {
+    Sleep 40
+
+    ; If nothing selected — select last word
+    if (A_Clipboard = "") {
+        Send "^+{Left}"
+        Sleep 50
+        Send "^c"
+        Sleep 40
+    }
+
+    if !ClipWait(0.5) {
         A_Clipboard := old
         return
     }
+
     A_Clipboard := Convert(A_Clipboard)
     Sleep 30
     Send "^v"
