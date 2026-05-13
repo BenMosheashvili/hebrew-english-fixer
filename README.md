@@ -2,18 +2,49 @@
 
 > Typed in the wrong language? One key fixes it instantly.
 
-A lightweight AutoHotkey v2 script that runs silently in your system tray and converts the last typed word between Hebrew ↔ English keyboard layouts — direction detected automatically.
+A lightweight AutoHotkey v2 script that runs silently in your system tray and converts text between Hebrew ↔ English keyboard layouts. Direction is detected automatically.
 
 ---
 
-## ✨ How It Works
+## 🚀 Installation & Running
 
-Press **NumLock** after typing a word in the wrong language:
+1. Install [AutoHotkey v2](https://www.autohotkey.com/) (free)
+2. Download or clone this repo
+3. Double-click `Hebrew-English.ahk`
+4. A green **H** icon appears in your system tray (bottom-right near the clock) — the script is running
 
-- Typed `akldm` but meant `שלום`? → Press NumLock → instant fix
-- Typed `שלום` but meant `akldm`? → Press NumLock → converts back
+> To stop: right-click the tray icon → **Exit**
+> To auto-start with Windows: see [Auto-start](#-auto-start-with-windows) below
 
-The script detects direction automatically.
+---
+
+## ✨ How to Use
+
+### Option 1 — Convert a single word (no selection needed)
+Just type, realize you're in the wrong language, press **NumLock**:
+
+```
+You typed:   akldm
+Press:       NumLock
+Result:      שלום
+```
+
+### Option 2 — Convert any amount of text (select first)
+Select any text with your mouse or keyboard, then press **NumLock**:
+
+```
+You typed:   akldm hru
+Select all → NumLock
+Result:      שלום עיר
+```
+
+```
+You typed:   שלום מה נשמע
+Select all → NumLock
+Result:      akldm nd bgnd
+```
+
+> Works in **any direction**: English→Hebrew or Hebrew→English, detected automatically.
 
 ---
 
@@ -31,31 +62,20 @@ The script detects direction automatically.
 
 ---
 
-## 🚀 Installation
+## ⚡ Hotkey Summary
 
-**Requirements:** [AutoHotkey v2](https://www.autohotkey.com/) (free)
-
-1. Install AutoHotkey v2
-2. Download this repo
-3. Double-click `Hebrew-English.ahk`
-4. Done — script runs silently in background
-
----
-
-## ⚡ Usage
-
-| Action | Hotkey |
-|--------|--------|
-| Convert selected text | Select text → **NumLock** |
-| Convert last word (no selection) | **NumLock** |
-| Convert last sentence | Right-click tray icon |
-| Exit | Right-click tray icon → Exit |
+| Situation | What to do |
+|-----------|------------|
+| Typed one wrong word | Press **NumLock** |
+| Typed multiple wrong words | Select them → Press **NumLock** |
+| Typed a whole wrong sentence | Select it → Press **NumLock** |
+| Convert via menu | Right-click tray icon → **Convert Last Sentence** |
 
 ---
 
 ## 🔁 Auto-start with Windows
 
-Run once in PowerShell:
+Run once in PowerShell to add to Startup:
 
 ```powershell
 $ws = New-Object -ComObject WScript.Shell
@@ -67,7 +87,7 @@ $sc.Save()
 
 ---
 
-## 📦 Compile to .exe
+## 📦 Compile to .exe (run without AHK installed)
 
 ```powershell
 & "C:\Program Files\AutoHotkey\Compiler\Ahk2Exe.exe" `
@@ -83,8 +103,8 @@ $sc.Save()
 | Language | What you'd need to do | Verdict |
 |----------|-----------------------|---------|
 | **AHK v2** | 80 lines, done | ✅ Right tool |
-| **C / Rust** | `SetWindowsHookEx`, `SendInput`, message loop, tray icon — 1000+ lines | ❌ Same result, 10× work |
-| **Assembly** | Every Windows API call by hand | ❌ Weeks of work |
+| **C / Rust** | `SetWindowsHookEx`, `SendInput`, message loop, tray icon — 1000+ lines | ❌ Same result, 10× the work |
+| **Assembly** | Every Windows API call by hand at register level | ❌ Weeks of work |
 | **Python / Ruby** | No native keyboard hook — wraps the same API with added overhead | ❌ More deps, slower |
 
 AHK wraps the Windows keyboard hook API natively. Idle usage: **0% CPU, ~5MB RAM**.
