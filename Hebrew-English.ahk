@@ -65,13 +65,25 @@ DoConvert() {
     A_Clipboard := old
 }
 
-; Hotkey: Pause — אף אפליקציה לא משתמשת בו
+; Hotkey 1: Pause (= Fn+RShift on this laptop)
 Pause::DoConvert()
 
+; Hotkey 2: double-tap RShift within 300ms
+~RShift:: {
+    static lastTap := 0
+    now := A_TickCount
+    if (now - lastTap < 300) {
+        lastTap := 0
+        DoConvert()
+    } else {
+        lastTap := now
+    }
+}
+
 ; Tray
-A_IconTip := "Hebrew/English Fixer — Pause key"
+A_IconTip := "Hebrew/English Fixer — double-tap RShift or Fn+RShift"
 menuTray := A_TrayMenu
 menuTray.Delete()
-menuTray.Add("Convert (Pause key)", (*) => DoConvert())
+menuTray.Add("Convert", (*) => DoConvert())
 menuTray.Add()
 menuTray.Add("Exit", (*) => ExitApp())
