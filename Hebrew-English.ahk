@@ -39,25 +39,25 @@ Convert(text) {
 
 DoConvert() {
     old := ClipboardAll()
+
+    ; ── נסה להעתיק סלקשן קיים ──────────────────────────────────────────────
     A_Clipboard := ""
-
-    ; Copy current selection
     Send "^c"
-    Sleep 40
+    hasSelection := ClipWait(0.15)   ; מחכה 150ms — אם יש סלקשן הוא יגיע
 
-    ; If nothing selected — select last word
-    if (A_Clipboard = "") {
+    ; ── אם אין סלקשן — בחר מילה אחרונה ──────────────────────────────────────
+    if !hasSelection {
+        A_Clipboard := ""
         Send "^+{Left}"
-        Sleep 50
-        Send "^c"
         Sleep 40
+        Send "^c"
+        if !ClipWait(0.5) {
+            A_Clipboard := old
+            return
+        }
     }
 
-    if !ClipWait(0.5) {
-        A_Clipboard := old
-        return
-    }
-
+    ; ── המר והדבק ────────────────────────────────────────────────────────────
     A_Clipboard := Convert(A_Clipboard)
     Sleep 30
     Send "^v"
@@ -65,12 +65,13 @@ DoConvert() {
     A_Clipboard := old
 }
 
-NumLock::DoConvert()
+; Hotkey: Pause — אף אפליקציה לא משתמשת בו
+Pause::DoConvert()
 
 ; Tray
-A_IconTip := "Hebrew/English Fixer — NumLock"
+A_IconTip := "Hebrew/English Fixer — Pause key"
 menuTray := A_TrayMenu
 menuTray.Delete()
-menuTray.Add("Convert Word (CapsLock)", (*) => DoConvert())
+menuTray.Add("Convert (Pause key)", (*) => DoConvert())
 menuTray.Add()
 menuTray.Add("Exit", (*) => ExitApp())
